@@ -66,9 +66,9 @@
     <br>
     <br>
     <br>
-    <div>Website by <a href="https://www.bopimo.com/users/GeoMzn">GeoMzn</a>, Bopimo! made by Isaiah, Leon, and FireCat.</div>
+    <div>Website by <a href="https://www.bopimo.com/users/GeoMzn">GeoMzn</a>, Bopimo! made by Isaiah, Leon, and FireCat.<br><a href="/changelog">Changelog</a></div>
     <script>
-        const version = "1.0.0"
+        const version = "1.0.1"
         const result = document.getElementById("result");
 
         document.getElementById("search").addEventListener("click", async () => {
@@ -110,6 +110,13 @@
 
                     user = json.data[0];
                 }
+                if (user.username === "BopiFinder") {
+                    user.username = "Bopifinder (OFFICIAL)"
+                }
+                else if (user.username === "GeoMzn") {
+                    user.username = "GeoMzn (BOPIFINDER CREATOR)"
+                }
+                    
 
                 result.innerHTML = `
                     <div class="card">
@@ -129,7 +136,7 @@
                                 View Profile
                             </a>
                         </p>
-                        <a href="${user.bopi_url}" target="_blank">View Bopi</a>
+                        <a href="${user.bopi.bopi_url}" target="_blank">View Bopi</a>
                     </div>
                 `;
             }
