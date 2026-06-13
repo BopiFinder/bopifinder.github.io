@@ -48,10 +48,9 @@
             color: #111;
         }
     </style>
-  <h1>BopiFinder</h1>
 </head>
 <body>
-
+    <h1>BopiFinder</h1><br><br>
     <p>Find Bopi's through UserID or Username!</p>
     <p id="splash"></p>
 
@@ -71,10 +70,12 @@
     <br>
     <br>
     <div>Website by <a href="https://www.bopimo.com/users/GeoMzn">GeoMzn</a>, Bopimo! made by Isaiah, Leon, and FireCat.<br><br><a href="/changelog">Changelog</a><br><a href="/archives">Archives</a></div>
+    <div id="bpflink"></div>
     <script>
         const version = "1.0.2"
         const result = document.getElementById("result");
         let random
+        const text = document.getElementById("bpflink");
 
         document.getElementById("search").addEventListener("click", async () => {
             const input = document
@@ -97,6 +98,7 @@
                         )
                     );
                     user = await res.json();
+                    text.textContent = `https://bopifinder.github.io/?user=${user.id}`
                 } else {
                     const res = await fetch(
                         "https://corsproxy.io/?" +
@@ -112,25 +114,8 @@
                     }
 
                     user = json.data[0];
+                    text.textContent = `https://bopifinder.github.io/?user=${user.username}`
                 }
-
-                const params = new URLSearchParams(window.location.search);
-        const user = params.get("user");
-                
-                if (user === /^\d+$/) {
-                    const res = await fetch(
-                    "https://corsproxy.io/?" +
-                    encodeURIComponent(
-                        `https://www.bopimo.com/api/user/${identifier}`
-                    );
-            }
-                else {
-                    const res = await fetch(
-                    "https://corsproxy.io/?" +
-                    encodeURIComponent(
-                        `https://www.bopimo.com/api/users?search=${identifier}`
-                    );
-            }
                 
                 if (user.username === "BopiFinder") {
                     user.username = "Bopifinder (OFFICIAL)"
@@ -159,7 +144,7 @@
                             </a>
                         </p>
                         <a href="${user.bopi.bopi_url}" target="_blank">View Bopi</a>
-                        <a href="${bpflink}" target="_blank" class="bpflnk">Copy Bopifinder Link</a>
+                        <button onClick="copyBopifinderLink()">Copy Bopifinder Link</button>
                     </div>
                 `;
             }
@@ -174,7 +159,7 @@
         "look its a bird",
         "'create on midnight ONLY' 😭🙏🥀",
         "BopiFinder by Geo_mzn, Bopimo! by Isaiah, FireCat, and Leon",
-          "Who's ${random}? Let's find out!"
+          `random thing`
       ]
       const splashGen = Math.floor(Math.random() * splashes.length);
       document.getElementById("splash").textContent = splashes[splashGen];
@@ -191,7 +176,18 @@
             const user = await res.json();
             if (user && user.id) {
                 random = user.username
+                document.getElementById("splash").textContent = `Who's ${random}? I don't know, let's find out!`
             }
+        }
+        
+        const params = new URLSearchParams(window.location.search);
+        const userParam = params.get("user");
+        if (userParam) {
+            document.getElementById("textbox").value = userParam;
+            document.getElementById("search").click();
+        }
+        function copyBopifinderLink() {
+            navigator.clipboard.writeText(text.textContent);
         }
     </script>
 
