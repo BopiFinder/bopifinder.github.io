@@ -113,6 +113,25 @@
 
                     user = json.data[0];
                 }
+
+                const params = new URLSearchParams(window.location.search);
+        const user = params.get("user");
+                
+                if (user === /^\d+$/) {
+                    const res = await fetch(
+                    "https://corsproxy.io/?" +
+                    encodeURIComponent(
+                        `https://www.bopimo.com/api/user/${identifier}`
+                    );
+            }
+                else {
+                    const res = await fetch(
+                    "https://corsproxy.io/?" +
+                    encodeURIComponent(
+                        `https://www.bopimo.com/api/users?search=${identifier}`
+                    );
+            }
+                
                 if (user.username === "BopiFinder") {
                     user.username = "Bopifinder (OFFICIAL)"
                 }
@@ -173,25 +192,6 @@
             if (user && user.id) {
                 random = user.username
             }
-        }
-
-        const params = new URLSearchParams(window.location.search);
-        
-        const user = params.get("user");
-        
-        if (user === /^\d+$/) {
-            const res = await fetch(
-                "https://corsproxy.io/?" +
-                encodeURIComponent(
-                    `https://www.bopimo.com/api/user/${identifier}`
-                );
-        }
-        else {
-            const res = await fetch(
-                "https://corsproxy.io/?" +
-                encodeURIComponent(
-                    `https://www.bopimo.com/api/users?search=${identifier}`
-                );
         }
     </script>
 
