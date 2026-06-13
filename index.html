@@ -43,6 +43,10 @@
         a {
             color: #4da6ff;
         }
+
+        .bpflnk {
+            color: #111;
+        }
     </style>
   <h1>BopiFinder</h1>
 </head>
@@ -70,6 +74,7 @@
     <script>
         const version = "1.0.1"
         const result = document.getElementById("result");
+        let random
 
         document.getElementById("search").addEventListener("click", async () => {
             const input = document
@@ -91,7 +96,6 @@
                             `https://www.bopimo.com/api/user/${input}`
                         )
                     );
-
                     user = await res.json();
                 } else {
                     const res = await fetch(
@@ -100,7 +104,6 @@
                             `https://www.bopimo.com/api/users?search=${input}`
                         )
                     );
-
                     const json = await res.json();
 
                     if (!json.data.length) {
@@ -137,6 +140,7 @@
                             </a>
                         </p>
                         <a href="${user.bopi.bopi_url}" target="_blank">View Bopi</a>
+                        <a href="${bpflink}" target="_blank" class="bpflnk">Copy Bopifinder Link</a>
                     </div>
                 `;
             }
@@ -150,10 +154,45 @@
         `omg its bopifinder v${version}!`,
         "look its a bird",
         "'create on midnight ONLY' 😭🙏🥀",
-        "BopiFinder by Geo_mzn, Bopimo! by Isaiah, FireCat, and Leon"
+        "BopiFinder by Geo_mzn, Bopimo! by Isaiah, FireCat, and Leon",
+          "Who's ${random}? Let's find out!"
       ]
       const splashGen = Math.floor(Math.random() * splashes.length);
       document.getElementById("splash").textContent = splashes[splashGen];
+        if (splashGen === 4) {
+            const userGen = Math.floor(Math.random() * 25000) + 1;
+            const res = await fetch(
+                "https://corsproxy.io/?" +
+                encodeURIComponent(
+                    `https://www.bopimo.com/api/user/${userGen}`
+                )
+            );
+
+            if (!res.ok) return;
+            const user = await res.json();
+            if (user && user.id) {
+                random = user.username
+            }
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        
+        const user = params.get("user");
+        
+        if (user === /^\d+$/) {
+            const res = await fetch(
+                "https://corsproxy.io/?" +
+                encodeURIComponent(
+                    `https://www.bopimo.com/api/user/${identifier}`
+                );
+        }
+        else {
+            const res = await fetch(
+                "https://corsproxy.io/?" +
+                encodeURIComponent(
+                    `https://www.bopimo.com/api/users?search=${identifier}`
+                );
+        }
     </script>
 
 </body>
