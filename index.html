@@ -45,6 +45,8 @@
         }
 
         #bpflink {
+            width: 1px;
+            height: 1px;
             color: #111;
         }
     </style>
@@ -72,10 +74,41 @@
     <div>Website by <a href="https://www.bopimo.com/users/GeoMzn">GeoMzn</a>, Bopimo! made by Isaiah, Leon, and FireCat.<br><br><a href="/changelog">Changelog</a><br><a href="/archives">Archives</a></div>
     <div id="bpflink"></div>
     <script>
-        const version = "1.0.2"
+        const version = "1.0.3"
         const result = document.getElementById("result");
         let random
         const text = document.getElementById("bpflink");
+        const splashGen = Math.floor(Math.random() * splashes.length);
+
+        const splashes = [
+        `omg its bopifinder v${version}!`,
+        "look its a bird",
+        "'create on midnight ONLY' 😭🙏🥀",
+        "BopiFinder by Geo_mzn, Bopimo! by Isaiah, FireCat, and Leon",
+          `random thing`
+      ]
+        
+        (async () => {
+            if (splashGen === 4) {
+            const userGen = Math.floor(Math.random() * 25000) + 1;
+            const res = await fetch(
+                "https://corsproxy.io/?" +
+                encodeURIComponent(
+                    `https://www.bopimo.com/api/user/${userGen}`
+                )
+            );
+
+            if (!res.ok) return;
+            const user = await res.json();
+            if (user && user.id) {
+                random = user.username
+                document.getElementById("splash").textContent = `Who's ${random}? I don't know, let's find out!`
+            }
+        }
+            else {
+                document.getElementById("splash").textContent = splashes[splashGen];
+                 }
+                     })();
 
         document.getElementById("search").addEventListener("click", async () => {
             const input = document
@@ -163,24 +196,6 @@
       ]
       const splashGen = Math.floor(Math.random() * splashes.length);
       document.getElementById("splash").textContent = splashes[splashGen];
-        (async () => {
-            if (splashGen === 4) {
-            const userGen = Math.floor(Math.random() * 25000) + 1;
-            const res = await fetch(
-                "https://corsproxy.io/?" +
-                encodeURIComponent(
-                    `https://www.bopimo.com/api/user/${userGen}`
-                )
-            );
-
-            if (!res.ok) return;
-            const user = await res.json();
-            if (user && user.id) {
-                random = user.username
-                document.getElementById("splash").textContent = `Who's ${random}? I don't know, let's find out!`
-            }
-        }
-                     })();
         
         const params = new URLSearchParams(window.location.search);
         const userParam = params.get("user");
