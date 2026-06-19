@@ -1,0 +1,41 @@
+body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .card {
+            margin-top: 20px;
+            display: inline-block;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        img {
+            border-radius: 50%;
+        }
+
+        a {
+            color: #4da6ff;
+        }
+
+        #bpflink {
+            width: 1px;
+            height: 1px;
+            color: #111;
+        }
