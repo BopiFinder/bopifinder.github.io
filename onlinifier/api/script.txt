@@ -1,1 +1,0 @@
-<script src="https://bopifinder.github.io/assets/onlinifier/api.js"></script>
