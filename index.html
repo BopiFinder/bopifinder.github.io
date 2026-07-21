@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="https://cdn.bopimo.com/static/images/favicon.png">
 
     <style>
+        /* DELETE BUTTON CHANGES */
         :root {
             --bg: #111;
             --card: #1e1e1e;
@@ -127,20 +128,26 @@
             right: 12px;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255,0,0,0.8);
+            background: rgba(255, 0, 0, 0.9);
             color: white;
             border: none;
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
-            font-size: 16px;
-            line-height: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1;
             display: none;
             cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         }
 
         .history-item:hover .delete-btn {
-            display: block;
+            display: flex;
         }
 
         #result { min-height: 240px; }
@@ -176,7 +183,7 @@
     <div id="bpflink" style="display:none;"></div>
 
     <script>
-        const version = "1.0.4";
+        const version = "1.0.5";
         const resultDiv = document.getElementById("result");
         const splashEl = document.getElementById("splash");
         const linkEl = document.getElementById("bpflink");
@@ -191,7 +198,8 @@
             "look its a bird",
             "'create on midnight ONLY' 😭🙏🥀",
             "BopiFinder by GeoMzn • Bopimo! by Isaiah, FireCat, and Leon",
-            "random thing"
+            "i am in denial<br>his name was kyle",
+            "current changes: circle delete button and new splash"
         ];
 
         function extractUsernameFromUrl(input) {
@@ -278,10 +286,10 @@
             const idx = Math.floor(Math.random() * splashes.length);
             if (idx === 4) {
                 try {
-                    const id = Math.floor(Math.random() * 25000) + 1;
+                    const id = Math.floor(Math.random() * 5000) + 1;
                     const res = await fetch("https://corsproxy.io/?" + encodeURIComponent(`https://www.bopimo.com/api/user/${id}`));
+                    const u = await res.json();
                     if (res.ok) {
-                        const u = await res.json();
                         if (u?.username) {
                             splashEl.textContent = `Who's ${u.username}? Let's find out!`;
                             return;
